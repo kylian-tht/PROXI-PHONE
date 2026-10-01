@@ -109,7 +109,7 @@ Le projet ne nécessitant aucun backend complexe ou base de données pour foncti
 
 ---
 
-## 📞 Informations du Magazin
+## 📞 Informations du Magasin
 
 * **Enseigne** : PROXI-PHONE
 * **Adresse** : 26 Rue de la Poterie, 35500 Vitré
