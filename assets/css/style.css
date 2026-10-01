@@ -51,6 +51,8 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 [id] {
@@ -63,6 +65,9 @@ body {
   background-color: #fafbfc;
   line-height: 1.6;
   overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -403,10 +408,23 @@ button, input, select, textarea {
   display: none;
   background: none;
   border: none;
-  font-size: 1.6rem;
   color: var(--primary-dark);
   cursor: pointer;
-  padding: 4px;
+  padding: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: var(--radius-sm);
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.menu-toggle svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+  pointer-events: none;
 }
 
 /* ==========================================================================
@@ -425,7 +443,7 @@ button, input, select, textarea {
   border: 2px solid transparent;
   transition: var(--transition);
   text-align: center;
-  white-space: nowrap;
+  max-width: 100%;
 }
 
 .btn svg {
@@ -811,21 +829,34 @@ button, input, select, textarea {
 }
 
 .issue-card-icon {
-  width: 58px;
-  height: 58px;
-  background: var(--primary-soft);
+  width: 66px;
+  height: 66px;
+  background: transparent;
   color: var(--primary);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   transition: var(--transition);
 }
 
 .issue-card:hover .issue-card-icon {
-  background: var(--primary);
-  color: var(--white);
+  background: transparent;
+}
+
+.issue-card-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(13, 71, 161, 0.08);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.issue-card:hover .issue-card-icon img {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 8px 18px rgba(13, 71, 161, 0.16);
 }
 
 .issue-card-icon svg {
@@ -911,15 +942,33 @@ button, input, select, textarea {
 }
 
 .feature-box-icon {
-  width: 65px;
-  height: 65px;
-  background: linear-gradient(135deg, var(--accent-light), #fde68a);
+  width: 66px;
+  height: 66px;
+  background: transparent;
   color: #92400e;
-  border-radius: 50%;
-  margin: 0 auto 20px;
+  border-radius: var(--radius-md);
+  margin: 0 auto 18px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.feature-box:hover .feature-box-icon {
+  background: transparent;
+}
+
+.feature-box-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(13, 71, 161, 0.08);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.feature-box:hover .feature-box-icon img {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 8px 18px rgba(13, 71, 161, 0.16);
 }
 
 .feature-box-icon svg {
@@ -970,8 +1019,30 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 16px;
+  margin: 0 auto 14px;
   border: 3px solid var(--primary-soft);
+}
+
+.step-card-picto {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-card-picto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(13, 71, 161, 0.08);
+  transition: transform 0.25s ease;
+}
+
+.step-card:hover .step-card-picto img {
+  transform: scale(1.08) translateY(-2px);
 }
 
 .step-card h4 {
@@ -1041,7 +1112,7 @@ button, input, select, textarea {
 
 .reviews-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 25px;
 }
 
@@ -1166,12 +1237,27 @@ button, input, select, textarea {
 
 .product-image-container {
   height: 190px;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #edf4fc 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   padding: 20px;
+  overflow: hidden;
+}
+
+.product-image-container img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: 0 6px 18px rgba(13, 71, 161, 0.1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.product-item:hover .product-image-container img {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 12px 24px rgba(13, 71, 161, 0.18);
 }
 
 .product-image-container svg {
@@ -1253,15 +1339,23 @@ button, input, select, textarea {
 }
 
 .access-icon {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: var(--radius-md);
-  background: var(--primary-soft);
+  background: transparent;
   color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.access-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: 0 3px 10px rgba(13, 71, 161, 0.1);
 }
 
 .access-icon svg {
@@ -1390,6 +1484,22 @@ button, input, select, textarea {
 /* ==========================================================================
    FORMULAIRE DE DEVIS (Page devis.html)
    ========================================================================== */
+.devis-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.devis-sidebar-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 25px;
+}
+
 .form-card {
   background: var(--white);
   border-radius: var(--radius-lg);
@@ -1448,7 +1558,7 @@ button, input, select, textarea {
 .device-picker-item {
   border: 1.5px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 14px 10px;
+  padding: 12px 10px;
   text-align: center;
   cursor: pointer;
   background: #f8fafc;
@@ -1458,6 +1568,7 @@ button, input, select, textarea {
 .device-picker-item:hover {
   border-color: var(--primary-light);
   background: var(--white);
+  transform: translateY(-2px);
 }
 
 .device-picker-item.selected {
@@ -1465,6 +1576,21 @@ button, input, select, textarea {
   background: var(--primary-soft);
   color: var(--primary-dark);
   font-weight: 700;
+  box-shadow: 0 4px 12px rgba(13, 71, 161, 0.1);
+}
+
+.device-picker-item img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  margin: 0 auto 6px;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.device-picker-item:hover img,
+.device-picker-item.selected img {
+  transform: scale(1.08);
 }
 
 .device-picker-item svg {
@@ -1767,7 +1893,18 @@ button, input, select, textarea {
   }
 }
 
+@media (max-width: 992px) {
+  .devis-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
 @media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
   .topbar {
     display: block;
     padding: 6px 0;
@@ -1783,7 +1920,7 @@ button, input, select, textarea {
   }
 
   .menu-toggle {
-    display: block;
+    display: inline-flex;
   }
 
   .nav-links {
@@ -1866,6 +2003,48 @@ button, input, select, textarea {
     width: 100%;
   }
 
+  .form-card {
+    padding: 24px 18px;
+  }
+
+  .devis-sidebar-card {
+    padding: 22px 18px;
+    margin-bottom: 20px;
+  }
+
+  .device-picker-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .device-picker-item {
+    padding: 10px 6px;
+    font-size: 0.85rem;
+  }
+
+  .access-info-card {
+    padding: 22px 16px;
+  }
+
+  .hours-table td {
+    padding: 8px 3px;
+    font-size: 0.84rem;
+  }
+
+  .hours-table td.time {
+    font-size: 0.82rem;
+  }
+
+  .btn {
+    white-space: normal;
+    text-align: center;
+  }
+
+  .btn-lg {
+    padding: 12px 18px;
+    font-size: 0.95rem;
+  }
+
   .form-row {
     grid-template-columns: 1fr;
   }
@@ -1886,9 +2065,71 @@ button, input, select, textarea {
 
   .mobile-sticky-bar {
     display: block;
+    max-width: 100vw;
+    padding: 10px 12px;
+  }
+
+  .mobile-sticky-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .mobile-sticky-inner .btn {
+    padding: 9px 8px;
+    font-size: 0.82rem;
+    gap: 4px;
+    white-space: nowrap;
+  }
+
+  .scroll-top-btn {
+    right: 15px;
+    bottom: 75px;
   }
 
   body {
     padding-bottom: 60px; /* Compenser la sticky bar */
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar-info {
+    gap: 6px;
+    flex-direction: column;
+  }
+
+  .logo-header-img {
+    height: 34px;
+  }
+
+  .header-cta-group {
+    gap: 8px;
+  }
+
+  .header-cta-group .btn-accent {
+    padding: 8px 12px;
+    font-size: 0.82rem;
+  }
+
+  .hero-title {
+    font-size: 1.85rem;
+  }
+
+  .device-picker-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .device-picker-item {
+    padding: 8px 4px;
+    font-size: 0.8rem;
+  }
+
+  .hours-table td {
+    font-size: 0.78rem;
+    padding: 7px 2px;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
   }
 }

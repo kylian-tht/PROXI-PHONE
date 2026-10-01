@@ -20,19 +20,26 @@ function initMobileMenu() {
 
   if (!toggleBtn || !navLinks) return;
 
-  toggleBtn.addEventListener('click', () => {
+  const iconBurger = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+  const iconClose = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     const isOpen = navLinks.classList.toggle('active');
     toggleBtn.setAttribute('aria-expanded', isOpen);
-    toggleBtn.innerHTML = isOpen 
-      ? `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`
-      : `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+    toggleBtn.innerHTML = isOpen ? iconClose : iconBurger;
   });
 
   // Fermer le menu si clic en dehors
   document.addEventListener('click', (e) => {
-    if (!toggleBtn.contains(e.target) && !navLinks.contains(e.target) && navLinks.classList.contains('active')) {
+    const isClickToggle = toggleBtn.contains(e.target) || (e.target.closest && e.target.closest('.menu-toggle'));
+    const isClickNav = navLinks.contains(e.target) || (e.target.closest && e.target.closest('.nav-links'));
+
+    if (!isClickToggle && !isClickNav && navLinks.classList.contains('active')) {
       navLinks.classList.remove('active');
-      toggleBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      toggleBtn.innerHTML = iconBurger;
     }
   });
 
@@ -41,7 +48,8 @@ function initMobileMenu() {
     link.addEventListener('click', () => {
       if (navLinks.classList.contains('active')) {
         navLinks.classList.remove('active');
-        toggleBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        toggleBtn.innerHTML = iconBurger;
       }
     });
   });
